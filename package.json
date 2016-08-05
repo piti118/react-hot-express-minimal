@@ -2,7 +2,7 @@
   "name": "react-hot-express",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "dev": "nodemon --ignore client/ server.js",
     "prod": "NODE_ENV=production node server.js",

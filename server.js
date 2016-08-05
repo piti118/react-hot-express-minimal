@@ -7,8 +7,9 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 function makeApp() {
   const app = express()
 
-  const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
 
+  const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
+  
   if (env === 'development') {
     const compiler = webpack(config);
     app.use(webpackDevMiddleware(compiler, {

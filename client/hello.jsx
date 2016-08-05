@@ -1,10 +1,11 @@
 import React from 'react';
+import Counter from './Counter.jsx'
 // import ReactDOM from 'react-dom';
 
 export default class Hello extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { time: '', count: 0 }
+    this.state = { time: '', count: 0, rs: null }
   }
 
   click() {
@@ -15,30 +16,48 @@ export default class Hello extends React.Component {
     const self = this
     fetch('/time')
       .then(res => res.json())
-      .then(function (json) {
-        self.setState({ ...this.state, time: json.time })
+      .then(x => { console.log(x, 'aaaaa'); return x })
+      .then((json) => {
+        self.setState({ ...self.state, time: json.time })
       })
   }
-
+  // click --> fetch -----------> res --> parse --> setState ---> render
   countClick() {
     let count = this.state.count
     count = count + 1
     this.setState({ ...this.state, count })
   }
 
+  reverseClick() {
+    const s = this.refs.txtinput.value
+    const rs = s.split('').reverse().join('');
+    // this.setState({...this.state, 'rs': rs})
+    this.setState({ ...this.state, rs })
+  }
+
+  // reverseClick --> ref -->> compute reverse --> rs --> setState --> render
+
   render() {
-    const { time, count } = this.state
+    const { time, count, rs } = this.state
+    const mystring = 'AAAAAAAA'
+    console.log('rendereeeeeed')
     return (<div>
       <h1 ref="header">
-        Hello World!
+        Hello May!
       </h1>
-      <div>
-        <p ref="data">{count}</p>
-        <button onClick={() => this.countClick()} ref="morebutton">More Click</button>
-      </div>
+      <Counter label={mystring} />
+      <Counter label="Ham Counter" />
       <div>
         <p>Time now <span ref="timespan">{time}</span></p>
         <button onClick={() => this.timeClick()} ref="timebutton">Update Time</button>
+      </div>
+      <div>
+        <p>Reverse Me</p>
+        <input type="text" ref="txtinput"></input>
+        <button onClick={() => this.reverseClick()} >Reverse</button>
+        <div>
+          <span> Result: </span> <div>{rs}</div>
+        </div>
       </div>
       <div>
         <p>
