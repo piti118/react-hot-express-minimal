@@ -9,7 +9,7 @@ function makeApp() {
 
 
   const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
-  
+
   if (env === 'development') {
     const compiler = webpack(config);
     app.use(webpackDevMiddleware(compiler, {
@@ -18,7 +18,7 @@ function makeApp() {
     }));
     app.use(webpackHotMiddleware(compiler));
   } else {
-    app.use(express.static('assets'));
+    app.use('/assets/', express.static('assets'));
   }
 
   app.use('/time', (req, res) => {
